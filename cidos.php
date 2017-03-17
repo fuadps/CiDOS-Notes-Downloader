@@ -23,7 +23,7 @@
 	$pattern = '/href="(http:\/\/lmspbu\.cidos\.edu\.my\/course\/view\.php\?id=\d{1,3})">(.*?)<\/a>/';
 	preg_match_all($pattern, $data, $matches, PREG_SET_ORDER, 0);
 	
-	c//checking $matches dump
+	//checking $matches dump
 	//var_dump($matches);
 
 ?>
