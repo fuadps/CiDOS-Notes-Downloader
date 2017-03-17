@@ -1,7 +1,8 @@
 <?php
 	//Initialize the connection between user and lmspbu
 	
-	$uname = "";
+	//student authentication 
+	$uname = ""; 
 	$pwd = "";
 	
 	$login = curl_init();
@@ -21,9 +22,21 @@
 	
 	//grab list of course student enroll from drop down menu
 	$pattern = '/href="(http:\/\/lmspbu\.cidos\.edu\.my\/course\/view\.php\?id=\d{1,3})">(.*?)<\/a>/';
-	preg_match_all($pattern, $data, $matches, PREG_SET_ORDER, 0);
+	preg_match_all($pattern, $data, $course, PREG_SET_ORDER, 0);
 	
-	//checking $matches dump
-	//var_dump($matches);
+	//checking $course dump
+	//var_dump($course);
+	
+	echo "List of course enroll : \n\n";
+	
+	//check course array length
+	$course_length = count($course) ;
+	
+	//display all the course student have enroll
+	for($i = 0; $i < $course_length ;$i++ ) {
+		
+		echo $i+1 . ".\t". htmlspecialchars_decode($course[$i][2]) . "\n";
+		
+	}
 
 ?>
