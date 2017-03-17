@@ -1,8 +1,8 @@
 <?php
 	
 	//student authentication
-	$uname = 970723595069;
-	$pwd = 970723595069;
+	$uname = "";
+	$pwd = "";
 	
 	//Initialize the connection between user and lmspbu
 	$login = curl_init();
@@ -39,6 +39,19 @@
 		
 	}
 	
+	//user input course 
+	course_pick : 
+	echo "\nChoose your course [1-".$course_length."] : ";
+	$course_num = trim(fgets(STDIN,1024));
 	
+	if ($course_num < $course_length) {
+		
+		// -1 becoz the numbering start 1 huhu
+		$course_link = $course[$course_num-1][1];
+		
+	} else if ($course_num > $course_length){
+		echo "Number not in range!";
+		goto course_pick;
+	} 
 
 ?>
