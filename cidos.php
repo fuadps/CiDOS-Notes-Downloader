@@ -1,21 +1,21 @@
 <?php
+	
+	//student authentication
+	$uname = 970723595069;
+	$pwd = 970723595069;
+	
 	//Initialize the connection between user and lmspbu
-	
-	//student authentication 
-	$uname = ""; 
-	$pwd = "";
-	
 	$login = curl_init();
 	curl_setopt($login, CURLOPT_COOKIEJAR, "cookie.txt");
-    curl_setopt($login, CURLOPT_COOKIEFILE, "cookie.txt");
+    	curl_setopt($login, CURLOPT_COOKIEFILE, "cookie.txt");
 	curl_setopt($login, CURLOPT_COOKIESESSION, true);
-    curl_setopt($login, CURLOPT_TIMEOUT, 40000);
-    curl_setopt($login, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($login, CURLOPT_URL, "http://lmspbu.cidos.edu.my/login/index.php");
-    curl_setopt($login, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0");
-    curl_setopt($login, CURLOPT_FOLLOWLOCATION, TRUE);
-    curl_setopt($login, CURLOPT_POST, TRUE);
-    curl_setopt($login, CURLOPT_POSTFIELDS, "submitlms.x=38&submitlms.y=55&username=$uname&password=$pwd");
+    	curl_setopt($login, CURLOPT_TIMEOUT, 40000);
+    	curl_setopt($login, CURLOPT_RETURNTRANSFER, TRUE);
+    	curl_setopt($login, CURLOPT_URL, "http://lmspbu.cidos.edu.my/login/index.php");
+    	curl_setopt($login, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0");
+    	curl_setopt($login, CURLOPT_FOLLOWLOCATION, TRUE);
+    	curl_setopt($login, CURLOPT_POST, TRUE);
+    	curl_setopt($login, CURLOPT_POSTFIELDS, "submitlms.x=38&submitlms.y=55&username=$uname&password=$pwd");
 	
 	//get resource after login
 	$data = curl_exec($login);
@@ -38,5 +38,7 @@
 		echo $i+1 . ".\t". htmlspecialchars_decode($course[$i][2]) . "\n";
 		
 	}
+	
+	
 
 ?>
