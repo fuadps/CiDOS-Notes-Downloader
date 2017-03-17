@@ -10,3 +10,4 @@ Only for PBU students only for now.
 - 1.11 - Spelling correction.
 - 1.20 - Added list of output student course.
 - 1.21 - Fix some indentation.
+- 1.22 - Add fgets function for selection course.
