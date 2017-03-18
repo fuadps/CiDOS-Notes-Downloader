@@ -4,6 +4,7 @@ CiDOS Notes Downloader written in PHP (CLI)
 Only for PBU students for now.
 
 ## Version
+Last Update : 18/03/2017
 
 - 1.00 
   - cidos.php created and authentication login lmspbu using cURL. 
@@ -27,3 +28,11 @@ Only for PBU students for now.
 
 ## Screenshot
 ![image](http://i.imgur.com/R0NwYqa.png)
+
+## To Do List
+
+- [ ] Add account name
+- [ ] Add error handler
+- [ ] Add user defined function
+- [ ] Add various type of file extension
+- [ ] Change notes regex pattern
