@@ -53,5 +53,78 @@
 		echo "Number not in range!";
 		goto course_pick;
 	} 
+	
+	//////////////////////////////////////
+	//list all notes
+	/////////////////////////////////////
+	
+	curl_setopt($login, CURLOPT_RETURNTRANSFER, TRUE);
+    	curl_setopt($login, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0");
+    	curl_setopt($login, CURLOPT_TIMEOUT, 40);
+    	curl_setopt($login, CURLOPT_COOKIEFILE, "cookie.txt");
+    	curl_setopt($login, CURLOPT_URL, $course_link);
+	
+	$notes_web = curl_exec($login);
+	
+	//detect notes by using ppt images
+	//bad practice i guess.will come up with new pattern later.	
+	$pattern = '/href="(http:\/\/lmspbu\.cidos\.edu\.my\/mod\/resource\/view\.php\?id=\d{4})"><img src="http:\/\/lmspbu\.cidos\.edu\.my\/theme\/image\.php\?theme=essential&amp;component=core&amp;image=f%2Fpowerpoint-24" class="iconlarge activityicon" alt=" " role="presentation" \/><span class="instancename">(.*?)<span/';
+	preg_match_all($pattern, $notes_web, $notes, PREG_SET_ORDER, 0);
+	
+	//checking dump 
+	//var_dump($notes);
+	
+	echo "List of notes : \n\n";
+	
+	//check course array length
+	$notes_length = count($notes) ;
+	
+	//display all the course student have enroll
+	for($i = 0; $i < $notes_length ;$i++ ) {
+		
+		echo $i+1 . ".\t". htmlspecialchars_decode($notes[$i][2]) . "\n";
+		
+	}
+	
+	////////////////////////////////////////
+	//DOWNLOAD FILE
+	///////////////////////////////////////
+	
+	echo "\nChoose your notes [1-".$notes_length."] : ";
+	$notes_num = trim(fgets(STDIN,1024));
+	
+	if ($notes_num < $notes_length) {
+		
+		// -1 becoz the numbering start 1 huhu
+		$notes_link = $notes[$notes_num-1][1];
+		
+	} else if ($notes_num > $notes_length){
+		echo "Number not in range!";
+	}
 
+	curl_setopt($login, CURLOPT_URL, $notes_link);
+	curl_setopt($login, CURLOPT_RETURNTRANSFER, 1);
+	
+	$rawdata = curl_exec ($login);
+
+	$mime_type =  curl_getinfo($login, CURLINFO_CONTENT_TYPE);
+	curl_close ($login);
+	
+	//checking extension using curlinfo content type
+	//will update later for more file extension
+	if ($mime_type == "application/vnd.ms-powerpoint") {
+		$ext = 'ppt';
+	}
+	
+	//save downloaded file
+	//destination : /files
+	$destination = "./files/{$notes[$notes_num-1][2]}.{$ext}";
+	$file = fopen($destination, "w+");
+	fputs($file, $rawdata);
+	fclose($file);
+	
+	echo "EOF";
+	
+
+?>
 ?>
