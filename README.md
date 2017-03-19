@@ -33,6 +33,6 @@ Last Update : 18/03/2017
 
 - [ ] Add account name
 - [ ] Add error handler
-- [ ] Add user defined function
+- [ ] Add user defined function for more arranged
 - [ ] Add various type of file extension
 - [ ] Change notes regex pattern
