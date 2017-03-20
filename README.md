@@ -25,13 +25,14 @@ Last Update : 18/03/2017
   - Checking mime types using curlinfo content type.
   - Notes can be download now. (only for presentation format only).
   - File extension : .ppt
-
+- 1.31
+  - Display account name
 ## Screenshot
 ![image](http://i.imgur.com/R0NwYqa.png)
 
 ## To Do List
 
-- [ ] Add account name
+- [x] Add account name
 - [ ] Add error handler
 - [ ] Add user defined function for more arranged
 - [ ] Add various type of file extension
