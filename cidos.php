@@ -20,6 +20,16 @@
 	//get resource after login
 	$data = curl_exec($login);
 	
+	//////////////////////////////////////
+	//list all course
+	/////////////////////////////////////
+	
+	$pattern_name = '/<div class="logininfo">You are logged in as (.*?)\(<a href=/';
+	
+	preg_match_all($pattern_name, $data, $name, PREG_SET_ORDER, 0);
+	
+	echo "Log in as ".$name[0][1]."\n";
+	
 	//grab list of course student enroll from drop down menu
 	$pattern = '/href="(http:\/\/lmspbu\.cidos\.edu\.my\/course\/view\.php\?id=\d{1,3})">(.*?)<\/a>/';
 	preg_match_all($pattern, $data, $course, PREG_SET_ORDER, 0);
@@ -52,8 +62,7 @@
 	} else if ($course_num > $course_length){
 		echo "Number not in range!";
 		goto course_pick;
-	} 
-	
+	}
 	//////////////////////////////////////
 	//list all notes
 	/////////////////////////////////////
@@ -126,5 +135,4 @@
 	echo "EOF";
 	
 
-?>
 ?>
