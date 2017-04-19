@@ -7,7 +7,7 @@
 	//Initialize the connection between user and lmspbu
 	$login = curl_init();
 	curl_setopt($login, CURLOPT_COOKIEJAR, "cookie.txt");
-    	curl_setopt($login, CURLOPT_COOKIEFILE, "cookie.txt");
+   	 curl_setopt($login, CURLOPT_COOKIEFILE, "cookie.txt");
 	curl_setopt($login, CURLOPT_COOKIESESSION, true);
     	curl_setopt($login, CURLOPT_TIMEOUT, 40000);
     	curl_setopt($login, CURLOPT_RETURNTRANSFER, TRUE);
@@ -65,7 +65,7 @@
 	}
 	//////////////////////////////////////
 	//list all notes
-	//////////////////////////////////////
+	/////////////////////////////////////
 	
 	curl_setopt($login, CURLOPT_RETURNTRANSFER, TRUE);
     	curl_setopt($login, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:51.0) Gecko/20100101 Firefox/51.0");
@@ -114,8 +114,15 @@
 	curl_setopt($login, CURLOPT_URL, $notes_link);
 	curl_setopt($login, CURLOPT_RETURNTRANSFER, 1);
 	
-	$rawdata = curl_exec ($login);
+	$rawdata = curl_exec($login);
 
+	/*
+	///////////////////////////////////////////////////////////////
+	Problem with this block : 
+	Need to download 2 times the file just to detect extension LUL
+	extremely not recommended
+	just comment it for reasons.
+	/////////////////////////////////////////////////////////////
 	$mime_type =  curl_getinfo($login, CURLINFO_CONTENT_TYPE);
 	curl_close ($login);
 	
@@ -124,15 +131,41 @@
 	if ($mime_type == "application/vnd.ms-powerpoint") {
 		$ext = 'ppt';
 	}
+	*/
+	
+	//list extension available
+	$mime_type = array (
+	
+		//source : https://www.sitepoint.com/web-foundations/mime-types-summary-list/
+		//ms office
+		'doc' => 'application/msword',
+        	'rtf' => 'application/rtf',
+        	'xls' => 'application/vnd.ms-excel',
+        	'ppt' => 'application/vnd.ms-powerpoint',
+		'ppt' => 'application/vnd.ms-powerpointtd>',
+		'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+		'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+
+	);
 	
 	//save downloaded file
 	//destination : /files
-	$destination = "./files/{$notes[$notes_num-1][2]}.{$ext}";
+	$destination = "./files/{$notes[$notes_num-1][2]}";
 	$file = fopen($destination, "w+");
 	fputs($file, $rawdata);
 	fclose($file);
 	
-	echo "EOF";
 	
+	//detect mime type of the file after save.
+	$mimeheader = mime_content_type("./files/{$notes[$notes_num-1][2]}");
+	
+	//seach mime types of the file
+	$ext = array_search($mimeheader,$mime_type);
+	
+	//add file extension name after detect it mime type.
+	rename("./files/{$notes[$notes_num-1][2]}","./files/{$notes[$notes_num-1][2]}.$ext");
+	
+	//show destinations of the file
+	echo "File saved at : files/".$notes[$notes_num-1][2].".".$ext;
 
 ?>
