@@ -4,7 +4,7 @@ CiDOS Notes Downloader written in PHP (CLI)
 Only for PBU students for now.
 
 ## Version
-Last Update : 20/03/2017
+Last Update : 20/04/2017
 
 - 1.00 
   - cidos.php created and authentication login lmspbu using cURL. 
