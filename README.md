@@ -27,6 +27,10 @@ Last Update : 20/03/2017
   - File extension : .ppt
 - 1.31
   - Display account name
+- 1.40
+  - Detect mime type using mime_content_type instead of curl_getinfo.
+  - No need to download file 2 times for content and it only mime types (refer top)
+  - Add file extension : .doc .rtf .xls .pptx .docx
 ## Screenshot
 ![image](http://i.imgur.com/R0NwYqa.png)
 
@@ -36,4 +40,4 @@ Last Update : 20/03/2017
 - [ ] Add error handler
 - [ ] Add user defined function for more arranged
 - [ ] Add various type of file extension
-- [ ] Change notes regex pattern
+- [ ] Change notes section regex pattern
